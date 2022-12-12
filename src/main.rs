@@ -17,6 +17,7 @@ type PgPool = Pool<AsyncPgConnection>;
 #[tokio::main]
 async fn main() {
     dotenvy::dotenv().unwrap();
+    let args = ap::Cli::parse();
 
     // Setup database connection
     let db_url = std::env::var("DATABASE_URL")
@@ -29,7 +30,6 @@ async fn main() {
     let twt = Twitter::new(BearerToken::new(auth));
 
     // Run appropriate subcommand
-    let args = ap::Cli::parse();
     match args.command {
         ap::Commands::Synch => sc::sync(twt, pool),
         ap::Commands::User { command } => match command {
