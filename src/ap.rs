@@ -4,11 +4,11 @@ use clap::{Parser, Subcommand};
 #[command(arg_required_else_help = true)]
 pub struct Cli {
     #[command(subcommand)]
-    command: Commands,
+    pub command: Commands,
 }
 
 #[derive(Debug, Subcommand)]
-enum Commands {
+pub enum Commands {
     /// View and modify user subscriptions
     #[command(arg_required_else_help = true)]
     User {
@@ -27,7 +27,7 @@ enum Commands {
 }
 
 #[derive(Debug, Subcommand)]
-enum UserCommands {
+pub enum UserCommands {
     /// Subscribe to a new user
     Add {
         url: url::Url,
